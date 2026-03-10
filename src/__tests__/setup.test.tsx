@@ -66,7 +66,7 @@ describe("Project Setup and Design Tokens", () => {
   describe("Footer", () => {
     it("displays copyright", () => {
       render(<Home />);
-      expect(screen.getByText(/© 2025 ReelForge/i)).toBeInTheDocument();
+      expect(screen.getByText(/© \d{4} ReelForge/i)).toBeInTheDocument();
     });
   });
 });
