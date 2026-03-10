@@ -130,7 +130,7 @@ export default function RegisterPage() {
               <input
                 id="fullName"
                 type="text"
-                placeholder="e.g. John Doe"
+                placeholder="e.g. Ahmet Yilmaz"
                 required
                 value={formData.fullName}
                 onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
@@ -210,14 +210,14 @@ export default function RegisterPage() {
               <label htmlFor="terms" className="text-sm text-[var(--color-text-muted-light)] dark:text-[var(--color-text-muted-dark)]">
                 I agree to the{" "}
                 <Link
-                  href="#"
+                  href="/terms"
                   className="font-medium text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] transition-colors"
                 >
                   Terms of Service
                 </Link>{" "}
                 and{" "}
                 <Link
-                  href="#"
+                  href="/privacy"
                   className="font-medium text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] transition-colors"
                 >
                   Privacy Policy
