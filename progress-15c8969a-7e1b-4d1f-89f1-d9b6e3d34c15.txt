@@ -1,0 +1,32 @@
+=== US-005: Home Page (Ana Sayfa) ===
+COMPLETED: 2026-03-26T06:05:00+03:00
+FILES CHANGED:
+- app/page.tsx (complete home page implementation)
+- app/layout.tsx (added Google Fonts, updated metadata)
+- app/globals.css (added scrollbar-hide utility)
+- app/page.test.tsx (8 test cases)
+- components/TypingAnimation.tsx (animated typing effect)
+- components/StatusBadge.tsx (availability badge with ping)
+- components/SocialLinks.tsx (social media links)
+- components/ProjectCard.tsx (project card component)
+- components/BlogCard.tsx (blog post card component)
+- components/ScrollIndicator.tsx (scroll indicator with bounce)
+- vitest.config.ts (Vitest configuration)
+- vitest.setup.ts (test setup)
+- package.json (added test script, dependencies)
+
+KEY DECISIONS:
+- Used Framer Motion for smooth animations (typing, hover, entrance effects)
+- Used lucide-react for icons (replaced brand icons with generic alternatives due to v1.7.0 limitations)
+- Implemented responsive grid system matching design requirements
+- All text in Turkish per project requirements
+- Added scanline overlay for terminal aesthetic
+- Gradient text for main heading using Tailwind gradient utilities
+
+DEPENDENCIES ADDED:
+- framer-motion (animations)
+- lucide-react (icons)
+- vitest (testing)
+- @testing-library/react, @testing-library/jest-dom, @testing-library/dom (testing utilities)
+- jsdom (test environment)
+- @vitejs/plugin-react (Vitest React plugin)
