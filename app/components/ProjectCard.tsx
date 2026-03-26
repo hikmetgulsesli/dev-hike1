@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { Project } from '@/lib/types';
 
 interface ProjectCardProps {
@@ -9,11 +8,11 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <Link href={`/projects/${project.slug}`}>
     <article
       className="group relative flex flex-col bg-[#111113] border border-[#27272a] rounded-lg overflow-hidden transition-all duration-300 hover:border-[#10b981] hover:-translate-y-1 hover:shadow-[0_10px_40px_-15px_rgba(16,185,129,0.3)] cursor-pointer"
       data-testid="project-card"
     >
+      <a href={`/projects/${project.slug}`} className="absolute inset-0 z-10" aria-label={`View ${project.title} details`} />
       {/* Thumbnail */}
       <div className="relative aspect-video overflow-hidden">
         <img
@@ -90,6 +89,5 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
       </div>
     </article>
-    </Link>
   );
 }
