@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { blogPosts } from '@/lib/data';
 import { paginatedResponse, calculatePagination, validationErrorResponse } from '@/lib/api-response';
-import type { BlogPost } from '@/lib/types';
 
 export async function GET(request: NextRequest) {
   try {
@@ -9,6 +8,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1', 10);
     const limit = parseInt(searchParams.get('limit') || '10', 10);
     const category = searchParams.get('category');
+    const tag = searchParams.get('tag');
     const featured = searchParams.get('featured');
     const search = searchParams.get('search');
 
@@ -26,31 +26,31 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    let filteredPosts = blogPosts.filter((p: BlogPost) => p.status === 'published');
+    let filteredPosts = blogPosts.filter(p => p.status === 'published');
 
     if (category && category !== 'all') {
-      filteredPosts = filteredPosts.filter((p: BlogPost) => p.category === category);
+      filteredPosts = filteredPosts.filter(p => p.category === category);
+    }
+
+    if (tag) {
+      filteredPosts = filteredPosts.filter(p => p.tags.some(t => t.toLowerCase() === tag.toLowerCase()));
     }
 
     if (featured === 'true') {
-      filteredPosts = filteredPosts.filter((p: BlogPost) => p.featured);
+      filteredPosts = filteredPosts.filter(p => p.featured);
     }
 
     if (search) {
       const searchLower = search.toLowerCase();
       filteredPosts = filteredPosts.filter(
-        (p: BlogPost) =>
-          p.title.toLowerCase().includes(searchLower) ||
-          p.excerpt.toLowerCase().includes(searchLower) ||
-          p.tags.some((t) => t.toLowerCase().includes(searchLower))
+        post =>
+          post.title.toLowerCase().includes(searchLower) ||
+          post.excerpt.toLowerCase().includes(searchLower) ||
+          post.tags.some(t => t.toLowerCase().includes(searchLower))
       );
     }
 
-    // Sort: pinned first, then by date
     filteredPosts.sort((a, b) => {
-      if (a.pinned !== b.pinned) {
-        return b.pinned ? 1 : -1;
-      }
       const dateA = new Date(a.publishedAt).getTime();
       const dateB = new Date(b.publishedAt).getTime();
       return dateB - dateA;
@@ -65,7 +65,7 @@ export async function GET(request: NextRequest) {
       paginatedResponse(paginatedPosts, pagination),
       { status: 200 }
     );
-  } catch {
+  } catch (error) {
     return NextResponse.json(
       {
         success: false,
