@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { projects } from '@/lib/data';
-import { paginatedResponse, calculatePagination, validationErrorResponse } from '@/lib/api-response';
+import { paginatedResponse, calculatePagination, validationErrorResponse, errorResponse } from '@/lib/api-response';
 import type { Project } from '@/lib/types';
 
 export async function GET(request: NextRequest) {
@@ -61,16 +61,10 @@ export async function GET(request: NextRequest) {
       paginatedResponse(paginatedProjects, pagination),
       { status: 200 }
     );
-  } catch {
+  } catch (error) {
+    console.error('Failed to fetch projects:', error);
     return NextResponse.json(
-      {
-        success: false,
-        error: {
-          code: 'INTERNAL_ERROR',
-          message: 'An unexpected error occurred',
-        },
-        timestamp: new Date().toISOString(),
-      },
+      errorResponse('INTERNAL_ERROR', 'An unexpected error occurred'),
       { status: 500 }
     );
   }

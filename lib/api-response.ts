@@ -44,24 +44,10 @@ export function validationErrorResponse(details: Record<string, string>): ApiRes
   return errorResponse('VALIDATION_ERROR', 'Validation failed', details);
 }
 
-export function notFoundResponse(resource: string, identifier?: string): ApiResponse<never> {
-  const message = identifier 
-    ? `${resource} with identifier '${identifier}' not found`
-    : `${resource} not found`;
-  return errorResponse('NOT_FOUND', message);
+export function notFoundResponse(entity: string, id: string): ApiResponse<never> {
+  return errorResponse('NOT_FOUND', `${entity} with id '${id}' not found`);
 }
 
-export function rateLimitResponse(retryAfter?: number): ApiResponse<never> {
-  const message = retryAfter 
-    ? `Too many requests. Please try again after ${retryAfter} seconds.`
-    : 'Too many requests. Please try again later.';
-  return {
-    success: false,
-    error: {
-      code: 'RATE_LIMITED',
-      message,
-      details: retryAfter ? { retryAfter: String(retryAfter) } : undefined,
-    },
-    timestamp: new Date().toISOString(),
-  };
+export function rateLimitResponse(retryAfter: number): ApiResponse<never> {
+  return errorResponse('RATE_LIMITED', `Rate limit exceeded. Retry after ${retryAfter} seconds.`);
 }

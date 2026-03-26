@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { successResponse, validationErrorResponse, rateLimitResponse } from '@/lib/api-response';
+import { successResponse, validationErrorResponse, rateLimitResponse, errorResponse } from '@/lib/api-response';
 import type { ContactFormData } from '@/lib/types';
 
 // Simple in-memory rate limiting (5 requests per hour per IP)
@@ -89,16 +89,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const id = `contact-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const id = `contact-${crypto.randomUUID()}`;
 
     console.log('Contact form submission:', {
       id,
-      firstName: firstName.trim(),
-      lastName: lastName.trim(),
-      email: email.trim(),
       subject: subject.trim(),
       messageLength: message.trim().length,
-      ip,
       submittedAt: new Date().toISOString(),
     });
 
@@ -107,15 +103,9 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
+    console.error('Contact form submission error:', error);
     return NextResponse.json(
-      {
-        success: false,
-        error: {
-          code: 'INTERNAL_ERROR',
-          message: 'An unexpected error occurred',
-        },
-        timestamp: new Date().toISOString(),
-      },
+      errorResponse('INTERNAL_ERROR', 'An unexpected error occurred'),
       { status: 500 }
     );
   }

@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { BlogPost } from '@/lib/types';
 
 interface BlogCardProps {
@@ -70,7 +71,7 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
               {post.excerpt}
             </p>
             
-            <a
+            <Link
               href={`/blog/${post.slug}`}
               className="inline-flex items-center gap-2 text-[#10b981] font-medium hover:gap-3 transition-all"
             >
@@ -78,7 +79,7 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </article>
@@ -111,7 +112,7 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
       {/* Footer */}
       <div className="flex items-center justify-between mt-auto pt-4 border-t border-[#27272a]/50">
         <span className="text-[#6b7280] text-xs">{post.readTime} dk okuma</span>
-        <a
+        <Link
           href={`/blog/${post.slug}`}
           className="flex items-center gap-1 text-sm text-[#a1a1aa] hover:text-[#10b981] transition-colors"
           data-testid="read-more-link"
@@ -119,7 +120,7 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
-        </a>
+        </Link>
       </div>
     </article>
   );

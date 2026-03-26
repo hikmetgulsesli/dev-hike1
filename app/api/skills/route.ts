@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { skills } from '@/lib/data';
-import { successResponse } from '@/lib/api-response';
+import { successResponse, errorResponse } from '@/lib/api-response';
 
 export async function GET(request: NextRequest) {
   try {
@@ -18,15 +18,9 @@ export async function GET(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
+    console.error('Failed to fetch skills:', error);
     return NextResponse.json(
-      {
-        success: false,
-        error: {
-          code: 'INTERNAL_ERROR',
-          message: 'An unexpected error occurred',
-        },
-        timestamp: new Date().toISOString(),
-      },
+      errorResponse('INTERNAL_ERROR', 'An unexpected error occurred'),
       { status: 500 }
     );
   }
