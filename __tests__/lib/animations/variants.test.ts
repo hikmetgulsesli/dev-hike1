@@ -48,7 +48,7 @@ describe('Animation Variants', () => {
     });
 
     it('should have exit state with opacity 0 and y offset', () => {
-      expect(fadeVariants.exit).toHaveProperty('opacity', 0);
+      expect(fadeUpVariants.exit).toHaveProperty('opacity', 0);
     });
   });
 

@@ -32,6 +32,12 @@ export {
 export {
   AnimatedContainer,
   AnimatedPage,
+  AnimatedLink,
+  AnimatedButton,
+  AnimatedCard,
+  AnimatedIcon,
+  StaggerContainer,
+  StaggerItem,
   type AnimatedContainerProps,
   type AnimatedPageProps,
 } from './components';

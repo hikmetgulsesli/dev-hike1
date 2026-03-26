@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, type HTMLMotionProps, type Variants } from 'framer-motion';
+import { motion, type HTMLMotionProps } from 'framer-motion';
 import {
   fadeVariants,
   fadeUpVariants,
@@ -12,6 +12,8 @@ import {
   staggerItemVariants,
   scrollAnimationSettings,
   defaultTransition,
+  microInteractions,
+  pageTransitionVariants,
 } from './variants';
 
 /**
@@ -26,7 +28,7 @@ export interface AnimatedContainerProps extends Omit<HTMLMotionProps<'div'>, 'vi
   children: React.ReactNode;
 }
 
-const variantMap: Record<string, Variants> = {
+const variantMap = {
   fade: fadeVariants,
   fadeUp: fadeUpVariants,
   scale: scaleVariants,
@@ -34,7 +36,7 @@ const variantMap: Record<string, Variants> = {
   slideRight: slideRightVariants,
   staggerContainer: staggerContainerVariants,
   staggerItem: staggerItemVariants,
-};
+} as const;
 
 export function AnimatedContainer({
   variant = 'fadeUp',
@@ -96,7 +98,7 @@ export function AnimatedPage({
       initial="hidden"
       animate="visible"
       exit="exit"
-      variants={fadeUpVariants}
+      variants={pageTransitionVariants}
       className={className}
       {...props}
     >
@@ -169,10 +171,7 @@ export function AnimatedLink({
       <motion.span
         className="absolute bottom-0 left-0 h-[1px] w-full origin-left"
         style={{ backgroundColor: underlineColor }}
-        variants={{
-          initial: { scaleX: 0 },
-          hover: { scaleX: 1, transition: { duration: 0.25, ease: 'easeOut' } },
-        }}
+        variants={microInteractions.linkUnderline}
       />
     </motion.a>
   );
@@ -194,8 +193,8 @@ export function AnimatedButton({
   return (
     <motion.button
       className={className}
-      whileTap={{ scale: 0.97 }}
-      transition={{ duration: 0.1 }}
+      whileTap="tap"
+      variants={microInteractions.buttonPress}
       {...props}
     >
       {children}
@@ -222,17 +221,7 @@ export function AnimatedCard({
       initial="rest"
       whileHover="hover"
       animate="rest"
-      variants={{
-        rest: {
-          y: 0,
-          boxShadow: '0 0 0 rgba(0,0,0,0)',
-        },
-        hover: {
-          y: -4,
-          boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
-          transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] },
-        },
-      }}
+      variants={microInteractions.cardHover}
       {...props}
     >
       {children}
@@ -256,9 +245,9 @@ export function AnimatedIcon({
   return (
     <motion.span
       className={className}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.85, rotate: -10 }}
-      transition={{ type: 'spring', stiffness: 500, damping: 15 }}
+      whileHover="hover"
+      whileTap="tap"
+      variants={microInteractions.iconBounce}
       {...props}
     >
       {children}

@@ -5,6 +5,12 @@ import type { Variants, Transition } from 'framer-motion';
  * Provides fade, slide, scale, and page transition animations
  */
 
+// Default transition
+export const defaultTransition: Transition = {
+  duration: 0.3,
+  ease: [0.25, 0.1, 0.25, 1],
+};
+
 // Fade variants
 export const fadeVariants: Variants = {
   hidden: {
@@ -12,16 +18,13 @@ export const fadeVariants: Variants = {
   },
   visible: {
     opacity: 1,
-    transition: {
-      duration: 0.3,
-      ease: [0.25, 0.1, 0.25, 1],
-    },
+    transition: defaultTransition,
   },
   exit: {
     opacity: 0,
     transition: {
+      ...defaultTransition,
       duration: 0.2,
-      ease: [0.25, 0.1, 0.25, 1],
     },
   },
 };
@@ -186,8 +189,8 @@ export const microInteractions = {
   // Link underline animation
   linkUnderline: {
     initial: { scaleX: 0, originX: 0 },
-    hover: { scaleX: 1, transition: { duration: 0.25, ease: 'easeOut' } },
-    exit: { scaleX: 0, transition: { duration: 0.2, ease: 'easeIn' } },
+    hover: { scaleX: 1, transition: { duration: 0.25, ease: [0.25, 0.1, 0.25, 1] as const } },
+    exit: { scaleX: 0, transition: { duration: 0.2, ease: [0.4, 0, 0.2, 1] as const } },
   },
 
   // Button press animation
@@ -202,22 +205,16 @@ export const microInteractions = {
     hover: {
       y: -4,
       boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
-      transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] },
+      transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const },
     },
   },
 
   // Icon bounce animation
   iconBounce: {
     tap: { scale: 0.85, rotate: -10 },
-    hover: { scale: 1.1, transition: { type: 'spring', stiffness: 400 } },
-    transition: { type: 'spring', stiffness: 500, damping: 15 },
+    hover: { scale: 1.1, transition: { type: 'spring' as const, stiffness: 400 } },
+    transition: { type: 'spring' as const, stiffness: 500, damping: 15 },
   },
-};
-
-// Default transition
-export const defaultTransition: Transition = {
-  duration: 0.3,
-  ease: [0.25, 0.1, 0.25, 1],
 };
 
 // Spring transition for bouncy effects
