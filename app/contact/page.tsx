@@ -160,8 +160,9 @@ export default function ContactPage() {
 
       if (data.success) {
         showToast('success', 'Mesajınız başarıyla gönderildi!');
+        const currentThankYou = true;
         resetForm();
-        setThankYou(true);
+        setThankYou(currentThankYou);
       } else {
         if (data.error?.details) {
           setErrors(data.error.details);
