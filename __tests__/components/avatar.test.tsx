@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { Avatar } from '../../components/ui/avatar'
 
 describe('Avatar Component', () => {
@@ -10,13 +10,14 @@ describe('Avatar Component', () => {
     expect(img.src).toBe('https://example.com/avatar.jpg')
   })
 
-  it('displays initials fallback when src fails', () => {
-    render(<Avatar fallback="Elif Yılmaz" />)
-    // The avatar should show initials EY
-    const initials = screen.getByText('EY')
-    expect(initials).toBeTruthy()
-    // The initials span is inside the div with bg-[#10b981]
-    expect(initials.parentElement?.className).toContain('bg-[#10b981]')
+  it('displays initials when image errors', () => {
+    render(<Avatar src="https://example.com/avatar.jpg" fallback="Test User" />)
+    const img = screen.getByAltText('')
+    fireEvent.error(img)
+    const fallbackDiv = screen.getByTestId('avatar-fallback')
+    expect(fallbackDiv).toBeTruthy()
+    expect(fallbackDiv.className).toContain('bg-primary')
+    expect(screen.getByText('TU')).toBeTruthy()
   })
 
   it('displays question mark when no fallback provided', () => {
@@ -27,7 +28,8 @@ describe('Avatar Component', () => {
 
   it('shows status indicator when status prop is provided', () => {
     render(<Avatar fallback="Ahmet Kaya" status="online" />)
-    const indicator = document.querySelector('.bg-\\[\\#22c55e\\]')
+    // Check for status indicator via the indicator div having bg-success
+    const indicator = document.querySelector('[class*="bg-success"]')
     expect(indicator).toBeTruthy()
   })
 

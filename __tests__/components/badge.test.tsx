@@ -6,50 +6,50 @@ describe('Badge Component', () => {
   it('renders default variant with correct colors', () => {
     render(<Badge>Etiket</Badge>)
     const badge = screen.getByText('Etiket')
-    expect(badge.className).toContain('bg-[#1a1a1f]')
-    expect(badge.className).toContain('text-[#a1a1aa]')
+    expect(badge.className).toContain('bg-background-subtle')
+    expect(badge.className).toContain('text-text-secondary')
   })
 
   it('renders primary variant with correct colors', () => {
     render(<Badge variant="primary">Birincil</Badge>)
     const badge = screen.getByText('Birincil')
-    expect(badge.className).toContain('bg-[#10b981]/20')
-    expect(badge.className).toContain('text-[#10b981]')
+    expect(badge.className).toContain('bg-primary/20')
+    expect(badge.className).toContain('text-primary')
   })
 
   it('renders secondary variant with correct colors', () => {
     render(<Badge variant="secondary">İkincil</Badge>)
     const badge = screen.getByText('İkincil')
-    expect(badge.className).toContain('bg-[#6366f1]/20')
-    expect(badge.className).toContain('text-[#6366f1]')
+    expect(badge.className).toContain('bg-accent/20')
+    expect(badge.className).toContain('text-accent')
   })
 
   it('renders accent variant with correct colors', () => {
     render(<Badge variant="accent">Vurgulu</Badge>)
     const badge = screen.getByText('Vurgulu')
-    expect(badge.className).toContain('bg-[#8b5cf6]/20')
-    expect(badge.className).toContain('text-[#8b5cf6]')
+    expect(badge.className).toContain('bg-accent-alt/20')
+    expect(badge.className).toContain('text-accent-alt')
   })
 
   it('renders success variant with correct colors', () => {
     render(<Badge variant="success">Başarılı</Badge>)
     const badge = screen.getByText('Başarılı')
-    expect(badge.className).toContain('bg-[#22c55e]/20')
-    expect(badge.className).toContain('text-[#22c55e]')
+    expect(badge.className).toContain('bg-success/20')
+    expect(badge.className).toContain('text-success')
   })
 
   it('renders warning variant with correct colors', () => {
     render(<Badge variant="warning">Uyarı</Badge>)
     const badge = screen.getByText('Uyarı')
-    expect(badge.className).toContain('bg-[#f59e0b]/20')
-    expect(badge.className).toContain('text-[#f59e0b]')
+    expect(badge.className).toContain('bg-warning/20')
+    expect(badge.className).toContain('text-warning')
   })
 
   it('renders error variant with correct colors', () => {
     render(<Badge variant="error">Hata</Badge>)
     const badge = screen.getByText('Hata')
-    expect(badge.className).toContain('bg-[#ef4444]/20')
-    expect(badge.className).toContain('text-[#ef4444]')
+    expect(badge.className).toContain('bg-error/20')
+    expect(badge.className).toContain('text-error')
   })
 
   it('renders removable badge with close button', () => {

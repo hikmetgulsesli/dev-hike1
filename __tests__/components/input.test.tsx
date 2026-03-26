@@ -6,16 +6,16 @@ describe('Input Component', () => {
   it('renders with default styles', () => {
     render(<Input placeholder="E-posta adresi" />)
     const input = screen.getByPlaceholderText('E-posta adresi')
-    expect(input.className).toContain('bg-[#111113]')
+    expect(input.className).toContain('bg-background-elevated')
     expect(input.className).toContain('border')
   })
 
   it('shows focus ring with primary color', () => {
     render(<Input placeholder="Adınız" />)
     const input = screen.getByPlaceholderText('Adınız')
-    expect(input.className).toContain('focus:border-[#10b981]')
+    expect(input.className).toContain('focus:border-primary')
     expect(input.className).toContain('ring-2')
-    expect(input.className).toContain('ring-[#10b981]/20')
+    expect(input.className).toContain('ring-primary/20')
   })
 
   it('shows error state with error message', () => {
@@ -27,8 +27,8 @@ describe('Input Component', () => {
       />
     )
     const input = screen.getByPlaceholderText('E-posta')
-    expect(input.className).toContain('border-[#ef4444]')
-    expect(input.className).toContain('ring-[#ef4444]/20')
+    expect(input.className).toContain('border-error')
+    expect(input.className).toContain('ring-error/20')
     expect(screen.getByText('Geçerli bir e-posta girin')).toBeTruthy()
   })
 
@@ -75,14 +75,14 @@ describe('Textarea Component', () => {
   it('renders with default styles', () => {
     render(<Textarea placeholder="Mesajınız" />)
     const textarea = screen.getByPlaceholderText('Mesajınız')
-    expect(textarea.className).toContain('bg-[#111113]')
+    expect(textarea.className).toContain('bg-background-elevated')
     expect(textarea.className).toContain('border')
   })
 
   it('shows focus ring with primary color', () => {
     render(<Textarea placeholder="Detaylar" />)
     const textarea = screen.getByPlaceholderText('Detaylar')
-    expect(textarea.className).toContain('focus:border-[#10b981]')
+    expect(textarea.className).toContain('focus:border-primary')
     expect(textarea.className).toContain('ring-2')
   })
 

@@ -24,10 +24,10 @@ const StatusIndicator: React.FC<StatusIndicatorProps> = ({
   }
   
   const colorStyles = {
-    online: 'bg-[#22c55e]',
-    offline: 'bg-[#6b7280]',
-    busy: 'bg-[#ef4444]',
-    away: 'bg-[#f59e0b]'
+    online: 'bg-success',
+    offline: 'bg-text-muted',
+    busy: 'bg-error',
+    away: 'bg-warning'
   }
   
   const labelText = {
@@ -65,7 +65,7 @@ const StatusIndicator: React.FC<StatusIndicatorProps> = ({
         )}
       </div>
       {showLabel && (
-        <span className="text-sm text-[#a1a1aa]">{labelText[status]}</span>
+        <span className="text-sm text-text-secondary">{labelText[status]}</span>
       )}
     </div>
   )

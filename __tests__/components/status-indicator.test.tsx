@@ -5,25 +5,25 @@ import { StatusIndicator } from '../../components/ui/status-indicator'
 describe('StatusIndicator Component', () => {
   it('renders online status with green color', () => {
     render(<StatusIndicator status="online" />)
-    const indicator = document.querySelector('.bg-\\[\\#22c55e\\]')
+    const indicator = document.querySelector('[class*="bg-success"]')
     expect(indicator).toBeTruthy()
   })
 
   it('renders offline status with gray color', () => {
     render(<StatusIndicator status="offline" />)
-    const indicator = document.querySelector('.bg-\\[\\#6b7280\\]')
+    const indicator = document.querySelector('[class*="bg-text-muted"]')
     expect(indicator).toBeTruthy()
   })
 
   it('renders busy status with red color', () => {
     render(<StatusIndicator status="busy" />)
-    const indicator = document.querySelector('.bg-\\[\\#ef4444\\]')
+    const indicator = document.querySelector('[class*="bg-error"]')
     expect(indicator).toBeTruthy()
   })
 
   it('renders away status with yellow color', () => {
     render(<StatusIndicator status="away" />)
-    const indicator = document.querySelector('.bg-\\[\\#f59e0b\\]')
+    const indicator = document.querySelector('[class*="bg-warning"]')
     expect(indicator).toBeTruthy()
   })
 

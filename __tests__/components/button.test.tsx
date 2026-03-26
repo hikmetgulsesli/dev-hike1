@@ -6,28 +6,28 @@ describe('Button Component', () => {
   it('renders primary variant with correct colors', () => {
     render(<Button variant="primary">Gönder</Button>)
     const button = screen.getByRole('button', { name: 'Gönder' })
-    expect(button.className).toContain('bg-[#10b981]')
+    expect(button.className).toContain('bg-primary')
     expect(button.className).toContain('text-white')
   })
 
   it('renders secondary variant with correct colors', () => {
     render(<Button variant="secondary">İptal</Button>)
     const button = screen.getByRole('button', { name: 'İptal' })
-    expect(button.className).toContain('text-[#10b981]')
+    expect(button.className).toContain('text-primary')
     expect(button.className).toContain('border')
   })
 
   it('renders ghost variant with correct colors', () => {
     render(<Button variant="ghost">Detaylar</Button>)
     const button = screen.getByRole('button', { name: 'Detaylar' })
-    expect(button.className).toContain('text-[#a1a1aa]')
-    expect(button.className).toContain('hover:bg-[#1a1a1f]')
+    expect(button.className).toContain('text-text-secondary')
+    expect(button.className).toContain('hover:bg-background-subtle')
   })
 
   it('renders destructive variant with correct colors', () => {
     render(<Button variant="destructive">Sil</Button>)
     const button = screen.getByRole('button', { name: 'Sil' })
-    expect(button.className).toContain('bg-[#ef4444]')
+    expect(button.className).toContain('bg-error')
     expect(button.className).toContain('text-white')
   })
 

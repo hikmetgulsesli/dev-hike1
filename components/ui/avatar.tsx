@@ -33,6 +33,12 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
     ...props 
   }, ref) => {
     const [imageError, setImageError] = React.useState(false)
+    const [currentSrc, setCurrentSrc] = React.useState(src)
+    
+    React.useEffect(() => {
+      setImageError(false)
+      setCurrentSrc(src)
+    }, [src])
     
     const sizeStyles = sizeMap[size]
     
@@ -45,29 +51,31 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
       return (words[0][0] + words[words.length - 1][0]).toUpperCase()
     }
     
-    const showFallback = !src || imageError
+    const showFallback = !currentSrc || imageError
     const initials = showFallback ? (fallback ? getInitials(fallback) : '?') : ''
     
     return (
       <div
         ref={ref}
-        className={`relative inline-flex items-center justify-center overflow-hidden ${rounded ? 'rounded-full' : 'rounded-lg'} ${sizeStyles.container} ${className}`}
+        className={`relative inline-flex items-center justify-center ${rounded ? 'rounded-full' : 'rounded-lg'} ${sizeStyles.container} ${className}`}
         {...props}
       >
-        {showFallback ? (
-          <div className="w-full h-full bg-[#10b981] flex items-center justify-center text-white font-medium">
-            <span className={sizeStyles.text}>{initials}</span>
-          </div>
-        ) : (
-          <img
-            src={src}
-            alt={alt}
-            className="w-full h-full object-cover"
-            onError={() => setImageError(true)}
-          />
-        )}
+        <div className="w-full h-full overflow-hidden">
+          {showFallback ? (
+            <div className="w-full h-full bg-primary flex items-center justify-center text-white font-medium" data-testid="avatar-fallback">
+              <span className={sizeStyles.text}>{initials}</span>
+            </div>
+          ) : (
+            <img
+              src={currentSrc}
+              alt={alt}
+              className="w-full h-full object-cover"
+              onError={() => setImageError(true)}
+            />
+          )}
+        </div>
         {status && (
-          <div className="absolute bottom-0 right-0">
+          <div className="absolute bottom-0 right-0 overflow-visible">
             <StatusIndicator 
               status={status} 
               size={size === 'xs' || size === 'sm' ? 'sm' : 'md'} 
