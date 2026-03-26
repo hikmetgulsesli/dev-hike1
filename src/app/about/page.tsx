@@ -387,7 +387,7 @@ function SkillsGrid() {
         Skills
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {skillCategories.map((category, catIndex) => (
+        {skillCategories.map((category) => (
           <div
             key={category.name}
             className="p-6 rounded-xl border about-skill-card"

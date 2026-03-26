@@ -25,7 +25,7 @@ describe("AlbumCover", () => {
     expect(cover).toHaveAttribute("aria-label", "No Cover")
     const gradient = cover.querySelector(".bg-gradient-to-br")
     expect(gradient).toBeInTheDocument()
-    expect(gradient).toHaveClass("from-[#e02485]", "to-[#22d3ee]")
+    expect(gradient).toHaveClass("from-primary", "to-secondary")
   })
 
   it("shows gradient fallback when src is null", () => {

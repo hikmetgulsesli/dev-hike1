@@ -1,12 +1,12 @@
 // About page tests - basic rendering validation
 // Note: Full component testing requires Next.js App Router test setup
 
+import fs from "fs";
+import path from "path";
+import { describe, it, expect } from "@jest/globals";
+
 describe("AboutPage", () => {
   it("about page file exists and exports default component", () => {
-    // Verify the about page file exists
-    const fs = require("fs");
-    const path = require("path");
-    
     const aboutPagePath = path.join(__dirname, "../about/page.tsx");
     expect(fs.existsSync(aboutPagePath)).toBe(true);
     
@@ -20,9 +20,6 @@ describe("AboutPage", () => {
   });
 
   it("about page contains all required UI elements", () => {
-    const fs = require("fs");
-    const path = require("path");
-    
     const aboutPagePath = path.join(__dirname, "../about/page.tsx");
     const content = fs.readFileSync(aboutPagePath, "utf-8");
     
@@ -51,9 +48,6 @@ describe("AboutPage", () => {
   });
 
   it("about page has proper Next.js client directive", () => {
-    const fs = require("fs");
-    const path = require("path");
-    
     const aboutPagePath = path.join(__dirname, "../about/page.tsx");
     const content = fs.readFileSync(aboutPagePath, "utf-8");
     
@@ -61,9 +55,6 @@ describe("AboutPage", () => {
   });
 
   it("about page uses design tokens from CSS variables", () => {
-    const fs = require("fs");
-    const path = require("path");
-    
     const aboutPagePath = path.join(__dirname, "../about/page.tsx");
     const content = fs.readFileSync(aboutPagePath, "utf-8");
     
@@ -76,9 +67,6 @@ describe("AboutPage", () => {
   });
 
   it("about page implements scroll animations with IntersectionObserver", () => {
-    const fs = require("fs");
-    const path = require("path");
-    
     const aboutPagePath = path.join(__dirname, "../about/page.tsx");
     const content = fs.readFileSync(aboutPagePath, "utf-8");
     
@@ -89,9 +77,6 @@ describe("AboutPage", () => {
   });
 
   it("about page has avatar with circular styling", () => {
-    const fs = require("fs");
-    const path = require("path");
-    
     const aboutPagePath = path.join(__dirname, "../about/page.tsx");
     const content = fs.readFileSync(aboutPagePath, "utf-8");
     
@@ -105,9 +90,6 @@ describe("AboutPage", () => {
   });
 
   it("about page has responsive design styles in globals.css", () => {
-    const fs = require("fs");
-    const path = require("path");
-    
     const globalsPath = path.join(__dirname, "../../app/globals.css");
     const content = fs.readFileSync(globalsPath, "utf-8");
     

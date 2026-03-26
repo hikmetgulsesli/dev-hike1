@@ -1,6 +1,8 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import ProjectsPage from "../app/projects/page";
-import { useAppStore, VideoProject } from "../lib/store";
+import { useAppStore } from "../lib/store";
+import type { VideoProject } from "../lib/store";
+import { formatDistanceToNow } from "../lib/utils";
 
 // Mock next-auth
 jest.mock("next-auth/react", () => ({
@@ -23,9 +25,9 @@ jest.mock("next/navigation", () => ({
 
 // Mock next/link
 jest.mock("next/link", () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => {
-    return <a href={href}>{children}</a>;
-  };
+  return jest.fn(({ children, href }: { children: React.ReactNode; href: string }) => (
+    <a href={href}>{children}</a>
+  ));
 });
 
 describe("Projects Page - US-007", () => {
@@ -350,20 +352,22 @@ describe("Projects Page - US-007", () => {
       // Default is grid view
       expect(screen.getByTestId("projects-grid")).toBeInTheDocument();
 
-      // Find and click list view button - look for buttons with p-2 class in the view toggle area
-      const buttons = screen.getAllByRole("button");
-      // The view toggle buttons should be after filter tabs, look for icon-only buttons
-      const viewButtons = buttons.filter(btn => 
-        btn.className.includes("p-2") && !btn.getAttribute("data-testid")
-      );
+      // Click list view button
+      const listButton = screen.getByTestId("view-mode-list");
+      fireEvent.click(listButton);
       
-      // Click the second view button (list view)
-      if (viewButtons.length >= 2) {
-        fireEvent.click(viewButtons[1]);
-        // After clicking, we may or may not see the list view depending on if component updates
-        // Just verify the click doesn't crash
-        expect(screen.getByTestId("projects-grid")).toBeInTheDocument();
-      }
+      // After clicking, list view should be shown
+      expect(screen.getByTestId("projects-list")).toBeInTheDocument();
+      
+      // Grid should not be visible
+      expect(screen.queryByTestId("projects-grid")).not.toBeInTheDocument();
+
+      // Click grid view button to go back
+      const gridButton = screen.getByTestId("view-mode-grid");
+      fireEvent.click(gridButton);
+      
+      expect(screen.getByTestId("projects-grid")).toBeInTheDocument();
+      expect(screen.queryByTestId("projects-list")).not.toBeInTheDocument();
     });
   });
 });
@@ -371,7 +375,6 @@ describe("Projects Page - US-007", () => {
 describe("formatDistanceToNow utility", () => {
   it("formats recent dates correctly", () => {
     const now = new Date();
-    const { formatDistanceToNow } = require("../lib/utils");
 
     expect(formatDistanceToNow(new Date(now.getTime() - 1000 * 30))).toBe("az önce");
     expect(formatDistanceToNow(new Date(now.getTime() - 1000 * 60 * 5))).toBe("5 dakika önce");

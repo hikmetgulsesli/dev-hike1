@@ -17,13 +17,13 @@ const AlbumCover = React.forwardRef<HTMLDivElement, AlbumCoverProps>(
 
     const sizeClasses = {
       sm: "w-12 h-12 rounded-lg",
-      lg: "w-80 h-80 rounded-xl shadow-[0_0_40px_rgba(224,36,133,0.3)]",
+      lg: "w-80 h-80 rounded-xl shadow-[0_0_40px_rgba(var(--color-primary-rgb),0.3)]",
     }
 
     const gradientFallback = (
       <div
         className={cn(
-          "absolute inset-0 bg-gradient-to-br from-[#e02485] to-[#22d3ee]",
+          "absolute inset-0 bg-gradient-to-br from-primary to-secondary",
           sizeClasses[size]
         )}
         aria-hidden="true"

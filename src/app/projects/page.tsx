@@ -139,6 +139,8 @@ export default function ProjectsPage() {
           <div className="flex items-center gap-2 bg-[var(--surface)] rounded-xl p-1">
             <button
               onClick={() => setViewMode("grid")}
+              data-testid="view-mode-grid"
+              aria-label="Grid view"
               className={`p-2 rounded-lg transition-colors ${
                 viewMode === "grid"
                   ? "bg-[var(--color-primary)]/20 text-[var(--color-primary)]"
@@ -149,6 +151,8 @@ export default function ProjectsPage() {
             </button>
             <button
               onClick={() => setViewMode("list")}
+              data-testid="view-mode-list"
+              aria-label="List view"
               className={`p-2 rounded-lg transition-colors ${
                 viewMode === "list"
                   ? "bg-[var(--color-primary)]/20 text-[var(--color-primary)]"

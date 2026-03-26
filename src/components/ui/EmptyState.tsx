@@ -42,7 +42,7 @@ const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
           <Button
             onClick={onAction}
             variant="default"
-            className="bg-[#e02485] hover:bg-[#be123c] text-white"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground"
           >
             {actionLabel}
           </Button>
