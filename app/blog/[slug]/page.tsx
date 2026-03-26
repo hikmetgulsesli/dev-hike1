@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const BASE_URL = "https://hikmetgulsesli.com";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://hikmetgulsesli.com";
 
 interface BlogPost {
   slug: string;
@@ -39,13 +39,13 @@ const demoPost: BlogPost = {
 };
 
 interface PageProps {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug } = params;
   // In production, fetch post by slug from CMS
   const post = slug === demoPost.slug ? demoPost : { ...demoPost, slug };
 
@@ -88,7 +88,7 @@ export async function generateMetadata({
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
-  const { slug } = await params;
+  const { slug } = params;
   const post = slug === demoPost.slug ? demoPost : { ...demoPost, slug };
 
   const jsonLd = {
@@ -115,11 +115,13 @@ export default async function BlogPostPage({ params }: PageProps) {
     },
   };
 
+  const safeJsonLd = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd }}
       />
       <main className="pt-32 pb-24 px-6 max-w-4xl mx-auto">
         <article>

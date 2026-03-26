@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const BASE_URL = "https://hikmetgulsesli.com";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://hikmetgulsesli.com";
 
 interface Project {
   slug: string;
@@ -34,13 +34,13 @@ const demoProject: Project = {
 };
 
 interface PageProps {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug } = params;
   // In production, fetch project by slug from CMS
   const project =
     slug === demoProject.slug ? demoProject : { ...demoProject, slug };
@@ -79,7 +79,7 @@ export async function generateMetadata({
 }
 
 export default async function ProjectDetailPage({ params }: PageProps) {
-  const { slug } = await params;
+  const { slug } = params;
   const project =
     slug === demoProject.slug ? demoProject : { ...demoProject, slug };
 
@@ -106,11 +106,13 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     },
   };
 
+  const safeJsonLd = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd }}
       />
       <main className="pt-24 pb-20 px-6 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-24">
