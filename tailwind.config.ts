@@ -41,9 +41,9 @@ const config: Config = {
         info: '#3b82f6',
       },
       fontFamily: {
-        heading: ['Space Grotesk', 'system-ui', 'sans-serif'],
-        body: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'SF Mono', 'Consolas', 'monospace'],
+        heading: ['var(--font-heading)', 'system-ui', 'sans-serif'],
+        body: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'SF Mono', 'Consolas', 'monospace'],
       },
       boxShadow: {
         'glow-primary': '0 0 20px rgba(16, 185, 129, 0.3)',
