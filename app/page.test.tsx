@@ -43,8 +43,8 @@ describe('Home Page', () => {
   it('renders the footer with navigation', () => {
     render(<Home />)
     expect(screen.getByText(/HİKMET GÜLEŞLİ/i)).toBeInTheDocument()
-    expect(screen.getByText(/STACK/i)).toBeInTheDocument()
-    expect(screen.getAllByText(/BLOG/i)[0]).toBeInTheDocument()
-    expect(screen.getAllByText(/İLETİŞİM/i)[0]).toBeInTheDocument()
+    expect(screen.getByText(/PROJELER/i)).toBeInTheDocument()
+    expect(screen.getByText(/BLOG/i)).toBeInTheDocument()
+    expect(screen.getByText(/İLETİŞİM/i)).toBeInTheDocument()
   })
 })
