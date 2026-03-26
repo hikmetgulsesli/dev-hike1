@@ -118,7 +118,7 @@ export const projects: Project[] = [
     slug: 'openapi-generator',
     title: 'OpenAPI Generator CLI',
     description: 'OpenAPI spesifikasyonlarından otomatik olarak API istemcileri ve sunucu kodları üreten açık kaynak CLI aracı. TypeScript, Go, Python ve Java dillerini destekliyor.',
-    shortDescription: 'OpenAPI’dan kod üreten açık kaynak CLI',
+    shortDescription: 'OpenAPI\'dan kod üreten açık kaynak CLI',
     thumbnail: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=450&fit=crop',
     images: [
       'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=800&fit=crop',

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { projects } from '@/lib/data';
 import { paginatedResponse, calculatePagination, validationErrorResponse } from '@/lib/api-response';
-import type { ApiResponse, Project, Pagination } from '@/lib/types';
+import type { Project } from '@/lib/types';
 
 export async function GET(request: NextRequest) {
   try {
@@ -26,23 +26,23 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    let filteredProjects = projects.filter(p => p.status === 'published');
+    let filteredProjects = projects.filter((p: Project) => p.status === 'published');
 
     if (category && category !== 'all') {
-      filteredProjects = filteredProjects.filter(p => p.category === category);
+      filteredProjects = filteredProjects.filter((p: Project) => p.category === category);
     }
 
     if (featured === 'true') {
-      filteredProjects = filteredProjects.filter(p => p.featured);
+      filteredProjects = filteredProjects.filter((p: Project) => p.featured);
     }
 
     if (search) {
       const searchLower = search.toLowerCase();
       filteredProjects = filteredProjects.filter(
-        p =>
+        (p: Project) =>
           p.title.toLowerCase().includes(searchLower) ||
           p.description.toLowerCase().includes(searchLower) ||
-          p.techStack.some(t => t.name.toLowerCase().includes(searchLower))
+          p.techStack.some((t) => t.name.toLowerCase().includes(searchLower))
       );
     }
 
@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
       paginatedResponse(paginatedProjects, pagination),
       { status: 200 }
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
         success: false,
