@@ -43,3 +43,11 @@ export function calculatePagination(page: number, limit: number, total: number):
 export function validationErrorResponse(details: Record<string, string>): ApiResponse<never> {
   return errorResponse('VALIDATION_ERROR', 'Validation failed', details);
 }
+
+export function notFoundResponse(entity: string, id: string): ApiResponse<never> {
+  return errorResponse('NOT_FOUND', `${entity} with id '${id}' not found`);
+}
+
+export function rateLimitResponse(retryAfter: number): ApiResponse<never> {
+  return errorResponse('RATE_LIMITED', `Rate limit exceeded. Retry after ${retryAfter} seconds.`);
+}
