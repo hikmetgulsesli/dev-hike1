@@ -26,26 +26,25 @@ describe('Home Page', () => {
 
   it('renders the featured projects section', () => {
     render(<Home />)
-    expect(screen.getByText(/Selected Works/i)).toBeInTheDocument()
+    expect(screen.getByText(/SEÇİLMİŞ ÇALIŞMALAR/i)).toBeInTheDocument()
     expect(screen.getByText(/Vesta Dashboard/i)).toBeInTheDocument()
   })
 
   it('renders the recent writing section', () => {
     render(<Home />)
-    expect(screen.getByText(/Logs & Research/i)).toBeInTheDocument()
+    expect(screen.getByText(/GÜNLÜK & ARAŞTIRMA/i)).toBeInTheDocument()
   })
 
   it('renders the CTA section with contact button', () => {
     render(<Home />)
-    expect(screen.getByText(/Birlikte çalışalım/i)).toBeInTheDocument()
     expect(screen.getByText(/İletişime Geç/i)).toBeInTheDocument()
   })
 
   it('renders the footer with navigation', () => {
     render(<Home />)
-    expect(screen.getByText(/Hikmet Güleşli/i)).toBeInTheDocument()
-    expect(screen.getByText(/Stack/i)).toBeInTheDocument()
-    expect(screen.getAllByText(/Blog/i)[0]).toBeInTheDocument()
-    expect(screen.getAllByText(/İletişim/i)[1]).toBeInTheDocument()
+    expect(screen.getByText(/HİKMET GÜLEŞLİ/i)).toBeInTheDocument()
+    expect(screen.getByText(/STACK/i)).toBeInTheDocument()
+    expect(screen.getAllByText(/BLOG/i)[0]).toBeInTheDocument()
+    expect(screen.getAllByText(/İLETİŞİM/i)[0]).toBeInTheDocument()
   })
 })

@@ -15,7 +15,7 @@ export function SocialLinks() {
     <div className="flex items-center gap-4">
       {socialLinks.map((social, index) => (
         <motion.a
-          key={social.label}
+          key={social.href}
           href={social.href}
           target="_blank"
           rel="noopener noreferrer"
