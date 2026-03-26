@@ -190,7 +190,7 @@ export default function Home() {
             </a>
             <a
               href="/projects"
-              className="inline-flex items-center gap-2 px-8 py-4 border border-outline-variant/30 hover:border-primary/50 text-text-primary rounded-md font-medium transition-all focus-visible:ring-2 focus-visible:ring-primary/50"
+              className="inline-flex items-center gap-2 px-8 py-4 border border-border hover:border-primary/50 text-text-primary rounded-md font-medium transition-all focus-visible:ring-2 focus-visible:ring-primary/50"
             >
               <span>&gt; Projeleri Gör</span>
               <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -213,7 +213,7 @@ export default function Home() {
 
       {/* Featured Projects Section */}
       <section 
-        className="py-24 px-6 md:px-12 lg:px-24 bg-surface-container-low"
+        className="py-24 px-6 md:px-12 lg:px-24 bg-background-elevated"
         aria-labelledby="projects-heading"
       >
         <div className="max-w-7xl mx-auto">
@@ -269,7 +269,7 @@ export default function Home() {
         />
         
         <div className="relative z-10 max-w-4xl mx-auto text-center space-y-8">
-          <div className="p-8 md:p-12 rounded-2xl bg-surface-container border border-gradient-to-r from-primary/30 via-accent/30 to-primary/30 relative overflow-hidden">
+          <div className="p-8 md:p-12 rounded-2xl bg-background-elevated border border-gradient-to-r from-primary/30 via-accent/30 to-primary/30 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5" aria-hidden="true" />
             <div className="relative z-10 space-y-6">
               <h2 id="cta-heading" className="font-heading text-3xl md:text-4xl font-bold text-text-primary">
@@ -298,7 +298,7 @@ export default function Home() {
       >
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-text-muted font-mono text-sm">
-            © 2024 Hikmet Güleşli
+            © {new Date().getFullYear()} Hikmet Güleşli
           </div>
           <nav aria-label="Footer navigation" className="flex gap-6 font-mono text-sm">
             <a href="/projects" className="text-text-muted hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary/50">Projeler</a>

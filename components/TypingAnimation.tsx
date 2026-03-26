@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { usePrefersReducedMotion } from '@/hooks/useReducedMotion'
 
 interface TypingAnimationProps {
   phrases: string[]
@@ -21,9 +21,15 @@ export function TypingAnimation({
   const [currentText, setCurrentText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
-  const shouldReduceMotion = useReducedMotion()
+  const shouldReduceMotion = usePrefersReducedMotion()
 
   useEffect(() => {
+    // If there are no phrases, show nothing and skip timers/animation logic
+    if (!phrases || phrases.length === 0) {
+      setCurrentText('')
+      return
+    }
+
     // If reduced motion is preferred, show first phrase statically
     if (shouldReduceMotion) {
       setCurrentText(phrases[0])

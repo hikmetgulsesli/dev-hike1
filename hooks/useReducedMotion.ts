@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react'
  * @returns {boolean} true if reduced motion is preferred
  * 
  * @example
- * const shouldReduceMotion = useReducedMotion()
+ * const shouldReduceMotion = usePrefersReducedMotion()
  * 
  * if (shouldReduceMotion) {
  *   // Skip animations
@@ -19,8 +19,14 @@ import { useState, useEffect } from 'react'
  *   // Play animations
  * }
  */
-export function useReducedMotion(): boolean {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+export function usePrefersReducedMotion(): boolean {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
+    // Initialize from matchMedia if available (avoids flash of wrong state)
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    }
+    return false
+  })
 
   useEffect(() => {
     // Check if window is available (client-side)
@@ -31,7 +37,7 @@ export function useReducedMotion(): boolean {
     // Check media query for reduced motion preference
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     
-    // Set initial value
+    // Set initial value from matchMedia
     setPrefersReducedMotion(mediaQuery.matches)
 
     // Listen for changes
@@ -52,3 +58,6 @@ export function useReducedMotion(): boolean {
 
   return prefersReducedMotion
 }
+
+// Alias for backwards compatibility
+export { usePrefersReducedMotion as useReducedMotion }

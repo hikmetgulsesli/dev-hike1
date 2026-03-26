@@ -21,15 +21,15 @@ interface ProjectCardProps {
 export function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <motion.article
-      className="group relative flex flex-col bg-surface-container rounded-lg overflow-hidden border-l-2 border-transparent hover:border-primary transition-all duration-300"
+      className="group relative flex flex-col bg-background-elevated rounded-lg overflow-hidden border-l-2 border-transparent hover:border-primary transition-all duration-300"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
       whileHover={{ y: -4 }}
     >
-      <div className="aspect-video bg-surface-container-high relative overflow-hidden">
+      <div className="aspect-video bg-background-subtle relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" />
-        <div className="absolute top-4 right-4 px-2 py-1 bg-surface/80 backdrop-blur rounded text-xs font-mono text-primary border border-primary/20">
+        <div className="absolute top-4 right-4 px-2 py-1 bg-background/80 backdrop-blur rounded text-xs font-mono text-primary border border-primary/20">
           {project.category}
         </div>
       </div>
@@ -46,14 +46,14 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           {project.tech.map((t) => (
             <span
               key={t}
-              className="px-2 py-1 text-xs font-mono bg-surface-container-high rounded text-text-muted"
+              className="px-2 py-1 text-xs font-mono bg-background-subtle rounded text-text-muted"
             >
               {t}
             </span>
           ))}
         </div>
         
-        <div className="flex justify-between items-center mt-auto pt-4 border-t border-outline/10">
+        <div className="flex justify-between items-center mt-auto pt-4 border-t border-border">
           {project.githubUrl && (
             <a
               href={project.githubUrl}
@@ -61,7 +61,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               rel="noopener noreferrer"
               className="flex items-center gap-1 text-xs font-mono text-text-secondary hover:text-primary transition-colors"
             >
-              <GitBranch className="w-4 h-4" />
+              <GitBranch className="w-4 h-4" aria-hidden="true" />
               <span>// GITHUB</span>
             </a>
           )}
@@ -73,7 +73,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               className="flex items-center gap-1 px-4 py-2 bg-primary/10 hover:bg-primary text-primary hover:text-inverse rounded-md text-xs font-medium transition-all"
             >
               <span>DEMO</span>
-              <ExternalLink className="w-3 h-3" />
+              <ExternalLink className="w-3 h-3" aria-hidden="true" />
             </a>
           )}
         </div>

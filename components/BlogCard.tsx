@@ -20,7 +20,7 @@ interface BlogCardProps {
 export function BlogCard({ post, index }: BlogCardProps) {
   return (
     <motion.article
-      className="group relative flex-shrink-0 w-[320px] bg-surface-container rounded-lg overflow-hidden border-l-2 border-transparent hover:border-primary transition-all duration-300"
+      className="group relative flex-shrink-0 w-[320px] bg-background-elevated rounded-lg overflow-hidden border-l-2 border-transparent hover:border-primary transition-all duration-300"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.15 }}
@@ -45,7 +45,7 @@ export function BlogCard({ post, index }: BlogCardProps) {
           className="inline-flex items-center gap-2 text-sm font-mono text-primary hover:text-primary-hover transition-colors"
         >
           <span>[ READ_FULL_ENTRY ]</span>
-          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
         </a>
       </div>
     </motion.article>

@@ -16,7 +16,7 @@ export function ScrollIndicator() {
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <ChevronDown className="w-5 h-5" />
+        <ChevronDown className="w-5 h-5" aria-hidden="true" />
       </motion.div>
     </motion.div>
   )

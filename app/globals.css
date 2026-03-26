@@ -70,14 +70,25 @@ body {
    ACCESSIBILITY: Focus Indicators (WCAG 2.1 AA)
    ============================================ */
 
-/* Visible focus ring for keyboard navigation */
+/* Baseline visible focus ring (fallback for browsers without :focus-visible) */
 *:focus {
-  outline: none;
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
+/* Refined focus ring for browsers that support :focus-visible */
 *:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
+}
+
+/* In browsers that support :focus-visible, suppress the generic :focus outline
+   so that only keyboard-like focus (focus-visible) shows the ring. */
+@supports selector(:focus-visible) {
+  *:focus {
+    outline: none;
+    outline-offset: 0;
+  }
 }
 
 /* Ring utility classes for focus states */

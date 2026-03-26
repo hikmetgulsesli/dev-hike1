@@ -10,9 +10,9 @@ interface StatusBadgeProps {
 export function StatusBadge({ text, available = true }: StatusBadgeProps) {
   return (
     <div 
-      className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container border border-outline/20"
+      className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-background-elevated border border-border"
       role="status"
-      aria-label={available ? 'Müsait' : 'Müsait değil'}
+      aria-label={`${available ? 'Müsait' : 'Müsait değil'}: ${text}`}
     >
       <span className="relative flex h-2.5 w-2.5">
         {available && (
