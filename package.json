@@ -2,15 +2,12 @@
   "name": "dev-hike1",
   "version": "1.0.0",
   "description": "Hikmet Güleşli Personal Website",
-  "engines": {
-    "node": ">=20.19.0"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint \"app/**/*.{ts,tsx}\" \"lib/**/*.{ts,tsx}\"",
-    "test": "vitest run --config vitest.config.ts"
+    "lint": "eslint \"app/**/*.{ts,tsx}\"",
+    "test": "vitest run"
   },
   "repository": {
     "type": "git",
@@ -35,6 +32,7 @@
     "@eslint/js": "^10.0.1",
     "@tailwindcss/postcss": "^4.2.2",
     "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",

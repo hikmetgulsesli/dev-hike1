@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { ArrowRight, Mail, Terminal } from 'lucide-react'
 import { TypingAnimation } from '@/components/TypingAnimation'
 import { StatusBadge } from '@/components/StatusBadge'
@@ -10,8 +11,8 @@ import { BlogCard, BlogPost } from '@/components/BlogCard'
 import { ScrollIndicator } from '@/components/ScrollIndicator'
 
 const roles = [
-  'Full-Stack Developer',
-  'UI/UX Designer',
+  'Tam Yığın Geliştirici',
+  'UI/UX Tasarımcı',
   'Sistem Mimarı',
   'Açık Kaynak Katkıcısı',
 ]
@@ -20,7 +21,7 @@ const featuredProjects: Project[] = [
   {
     id: '1',
     title: 'Vesta Dashboard',
-    description: 'Modern analytics dashboard with real-time data visualization, dark theme, and customizable widgets.',
+    description: 'Gerçek zamanlı veri görselleştirme, koyu tema ve özelleştirilebilir widget\'lar ile modern analiz panosu.',
     category: 'WEB',
     tech: ['React', 'TypeScript', 'Tailwind'],
     githubUrl: 'https://github.com/hikmetgulsesli/vesta-dashboard',
@@ -29,7 +30,7 @@ const featuredProjects: Project[] = [
   {
     id: '2',
     title: 'Claw Agent SDK',
-    description: 'AI agent framework for autonomous task execution with support for multiple LLM providers.',
+    description: 'Birden fazla LLM sağlayıcı desteği ile otonom görev yürütümü için AI ajan framework\'ü.',
     category: 'AÇIK KAYNAK',
     tech: ['TypeScript', 'Node.js', 'OpenAI'],
     githubUrl: 'https://github.com/hikmetgulsesli/claw-agent',
@@ -38,7 +39,7 @@ const featuredProjects: Project[] = [
   {
     id: '3',
     title: 'Nomad Navigator',
-    description: 'Mobile-first travel companion app for digital nomads with offline maps and local recommendations.',
+    description: 'Çevrimdışı haritalar ve yerel önerilerle dijital göçebeler için mobil öncelikli seyahat uygulaması.',
     category: 'MOBİL',
     tech: ['React Native', 'Expo', 'Supabase'],
     githubUrl: 'https://github.com/hikmetgulsesli/nomad-navigator',
@@ -47,7 +48,7 @@ const featuredProjects: Project[] = [
   {
     id: '4',
     title: 'TaskForge',
-    description: 'Team collaboration platform with kanban boards, time tracking, and automated workflows.',
+    description: 'Kanban panoları, zaman takibi ve otomatik iş akışlarıyla ekip işbirliği platformu.',
     category: 'WEB',
     tech: ['Next.js', 'Prisma', 'PostgreSQL'],
     githubUrl: 'https://github.com/hikmetgulsesli/taskforge',
@@ -56,7 +57,7 @@ const featuredProjects: Project[] = [
   {
     id: '5',
     title: 'DataStream API',
-    description: 'High-performance data streaming API with WebSocket support and real-time analytics.',
+    description: 'WebSocket desteği ve gerçek zamanlı analitiklerle yüksek performanslı veri akışı API\'si.',
     category: 'AÇIK KAYNAK',
     tech: ['Rust', 'WebSockets', 'Redis'],
     githubUrl: 'https://github.com/hikmetgulsesli/datastream',
@@ -64,7 +65,7 @@ const featuredProjects: Project[] = [
   {
     id: '6',
     title: 'PixelForge Studio',
-    description: 'Browser-based image editing tool with AI-powered filters and batch processing.',
+    description: 'AI destekli filtreler ve toplu işleme özelliklerine sahip tarayıcı tabanlı görüntü düzenleme aracı.',
     category: 'WEB',
     tech: ['WebGL', 'Canvas API', 'TensorFlow.js'],
     githubUrl: 'https://github.com/hikmetgulsesli/pixelforge',
@@ -75,24 +76,24 @@ const featuredProjects: Project[] = [
 const recentPosts: BlogPost[] = [
   {
     id: '1',
-    title: 'Optimizing React for 60fps and Beyond',
-    excerpt: 'Advanced techniques for maintaining smooth animations and interactions in complex React applications.',
+    title: 'React\'i 60fps ve Ötesi İçin Optimize Etmek',
+    excerpt: 'Karmaşık React uygulamalarında akıcı animasyonlar ve etkileşimler sağlamak için ileri teknikler.',
     category: 'PERFORMANS',
     date: 'Ağu 12',
     slug: 'optimizing-react-60fps',
   },
   {
     id: '2',
-    title: 'Rust vs WASM: The Performance Frontier',
-    excerpt: 'Exploration of binary compilation targets for browser-based computation and their trade-offs.',
+    title: 'Rust vs WASM: Performans Sınırı',
+    excerpt: 'Tarayıcı tabanlı hesaplama için ikili derleme hedeflerinin ve dengelerinin incelenmesi.',
     category: 'INFRA',
     date: 'Tem 05',
     slug: 'rust-vs-wasm',
   },
   {
     id: '3',
-    title: 'Custom Hooks for Real-time WebSockets',
-    excerpt: 'How to manage complex socket states without flooding the main thread or causing memory leaks.',
+    title: 'Gerçek Zamanlı WebSocket\'ler İçin Özel Hook\'lar',
+    excerpt: 'Ana iş parçacığını boğmadan veya bellek sızıntısına neden olmadan karmaşık soket durumlarını yönetme.',
     category: 'SİSTEM',
     date: 'Haz 28',
     slug: 'custom-hooks-websockets',
@@ -139,7 +140,7 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <span className="bg-gradient-to-r from-primary to-accent-alt bg-clip-text text-transparent">
-              KINETIC EXPERIENCES.
+              KINETIC<br className="hidden md:block" /> EXPERIENCES.
             </span>
           </motion.h1>
 
@@ -161,8 +162,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
-            Modern web teknolojileriyle dijital ürünler inşa ediyorum. 
-            Kullanıcı deneyimini ön planda tutan, performans odaklı çözümler geliştiriyorum.
+            <span className="text-text-primary font-semibold">React, Next.js ve TypeScript</span> ile yüksek performanslı uygulamalar geliştiriyorum. İnsan ve makine arasındaki boşluğu dolduran sürükleyici dijital arayüzler oluşturmaya odaklanıyorum.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -172,19 +172,19 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <a
+            <Link
               href="/about"
               className="inline-flex items-center gap-2 px-8 py-4 bg-primary hover:bg-primary-hover text-inverse rounded-md font-medium transition-all"
             >
               <span>// Hakkımda Bilgi Al</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/projects"
               className="inline-flex items-center gap-2 px-8 py-4 border border-outline-variant/30 hover:border-primary/50 text-text-primary rounded-md font-medium transition-all"
             >
               <span>&gt; Projeleri Gör</span>
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </Link>
           </motion.div>
 
           {/* Social Links */}
@@ -206,15 +206,15 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-end mb-12">
             <div>
-              <span className="text-xs font-mono text-primary mb-2 block">// Öne Çıkanlar</span>
-              <h2 className="font-heading text-3xl font-bold text-text-primary">Selected Works</h2>
+              <span className="text-xs font-mono text-primary mb-2 block">// featured_projects</span>
+              <h2 className="font-heading text-3xl font-bold text-text-primary">SEÇİLMİŞ ÇALIŞMALAR</h2>
             </div>
-            <a
+            <Link
               href="/projects"
               className="hidden md:inline-flex items-center gap-2 text-sm font-mono text-text-secondary hover:text-primary transition-colors"
             >
               <span>Tümünü Gör →</span>
-            </a>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -229,8 +229,8 @@ export default function Home() {
       <section className="py-24 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
           <div className="mb-12">
-            <span className="text-xs font-mono text-primary mb-2 block">// Günlük</span>
-            <h2 className="font-heading text-3xl font-bold text-text-primary">Logs & Research</h2>
+            <span className="text-xs font-mono text-primary mb-2 block">// recent_writing</span>
+            <h2 className="font-heading text-3xl font-bold text-text-primary">GÜNLÜK & ARAŞTIRMA</h2>
           </div>
 
           <div className="flex gap-6 overflow-x-auto pb-4 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide">
@@ -250,20 +250,19 @@ export default function Home() {
           <div className="p-8 md:p-12 rounded-2xl bg-surface-container border border-gradient-to-r from-primary/30 via-accent/30 to-primary/30 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5" />
             <div className="relative z-10 space-y-6">
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary">
-                Birlikte çalışalım
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary uppercase">
+                Haydi harika bir şey <span className="text-primary">birlikte</span> inşa edelim.
               </h2>
               <p className="text-text-secondary max-w-xl mx-auto">
-                Yeni bir proje fikriniz mi var? Mevcut bir ürünü mü geliştirmek istiyorsunuz? 
-                Hadi birlikte harika bir şey inşa edelim.
+                Yeni projeler ve işbirlikleri için şu an açığım. Üzerinde hassas bir çalışma gerektiren bir zorluğunuz varsa, konuşalım.
               </p>
-              <a
+              <Link
                 href="/contact"
-                className="inline-flex items-center gap-3 px-12 py-5 bg-primary hover:bg-primary-hover text-inverse rounded-md font-medium transition-all shadow-glow-primary"
+                className="inline-flex items-center gap-3 px-12 py-5 bg-primary hover:bg-primary-hover text-inverse rounded-md font-medium transition-all shadow-glow-primary uppercase"
               >
                 <Mail className="w-5 h-5" />
                 <span>İletişime Geç</span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -273,13 +272,13 @@ export default function Home() {
       <footer className="w-full py-12 px-6 md:px-12 border-t border-emerald-500/10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-text-muted font-mono text-sm">
-            © 2024 Hikmet Güleşli
+            © 2024 HİKMET GÜLEŞLİ
           </div>
           <div className="flex gap-6 font-mono text-sm">
-            <a href="/projects" className="text-text-muted hover:text-primary transition-colors">Projeler</a>
-            <a href="/stack" className="text-text-muted hover:text-primary transition-colors">Stack</a>
-            <a href="/blog" className="text-text-muted hover:text-primary transition-colors">Blog</a>
-            <a href="/contact" className="text-text-muted hover:text-primary transition-colors">İletişim</a>
+            <Link href="/projects" className="text-text-muted hover:text-primary transition-colors">PROJELER</Link>
+            <Link href="/stack" className="text-text-muted hover:text-primary transition-colors">STACK</Link>
+            <Link href="/blog" className="text-text-muted hover:text-primary transition-colors">BLOG</Link>
+            <Link href="/contact" className="text-text-muted hover:text-primary transition-colors">İLETİŞİM</Link>
           </div>
         </div>
       </footer>

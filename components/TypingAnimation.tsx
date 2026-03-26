@@ -21,6 +21,20 @@ export function TypingAnimation({
   const [isDeleting, setIsDeleting] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
 
+  // Guard against empty phrases array
+  if (!phrases || phrases.length === 0) {
+    return (
+      <span className="inline-flex items-center">
+        <span className="text-primary">&nbsp;</span>
+        <motion.span
+          className="inline-block w-2 h-5 bg-primary ml-1"
+          animate={{ opacity: [1, 0] }}
+          transition={{ duration: 0.8, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      </span>
+    )
+  }
+
   useEffect(() => {
     const currentPhrase = phrases[currentPhraseIndex]
 
