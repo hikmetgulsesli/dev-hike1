@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
 export interface BlogPost {
@@ -21,13 +20,13 @@ interface BlogCardProps {
 export function BlogCard({ post, index }: BlogCardProps) {
   return (
     <motion.article
-      className="group relative flex-shrink-0 w-[320px] bg-surface-container rounded-lg overflow-hidden border-l-2 border-transparent hover:border-primary transition-all duration-300"
+      className="group relative flex-shrink-0 w-[320px] bg-background-elevated rounded-lg overflow-hidden border-l-2 border-transparent hover:border-primary transition-all duration-300"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.15 }}
       whileHover={{ y: -4 }}
     >
-      <Link href={`/blog/${post.slug}`} className="block p-6 flex flex-col h-full">
+      <div className="p-6 flex flex-col h-full">
         <div className="flex items-center gap-3 mb-3">
           <span className="text-xs font-mono text-primary">{post.date}</span>
           <span className="text-xs font-mono text-text-muted">// {post.category}</span>
@@ -41,11 +40,14 @@ export function BlogCard({ post, index }: BlogCardProps) {
           {post.excerpt}
         </p>
         
-        <span className="inline-flex items-center gap-2 text-sm font-mono text-primary hover:text-primary-hover transition-colors">
+        <a
+          href={`/blog/${post.slug}`}
+          className="inline-flex items-center gap-2 text-sm font-mono text-primary hover:text-primary-hover transition-colors"
+        >
           <span>[ READ_FULL_ENTRY ]</span>
-          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-        </span>
-      </Link>
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+        </a>
+      </div>
     </motion.article>
   )
 }

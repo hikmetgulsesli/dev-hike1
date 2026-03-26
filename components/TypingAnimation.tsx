@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { usePrefersReducedMotion } from '@/hooks/useReducedMotion'
 
 interface TypingAnimationProps {
   phrases: string[]
@@ -20,22 +21,21 @@ export function TypingAnimation({
   const [currentText, setCurrentText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
-
-  // Guard against empty phrases array
-  if (!phrases || phrases.length === 0) {
-    return (
-      <span className="inline-flex items-center">
-        <span className="text-primary">&nbsp;</span>
-        <motion.span
-          className="inline-block w-2 h-5 bg-primary ml-1"
-          animate={{ opacity: [1, 0] }}
-          transition={{ duration: 0.8, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      </span>
-    )
-  }
+  const shouldReduceMotion = usePrefersReducedMotion()
 
   useEffect(() => {
+    // If there are no phrases, show nothing and skip timers/animation logic
+    if (!phrases || phrases.length === 0) {
+      setCurrentText('')
+      return
+    }
+
+    // If reduced motion is preferred, show first phrase statically
+    if (shouldReduceMotion) {
+      setCurrentText(phrases[0])
+      return
+    }
+
     const currentPhrase = phrases[currentPhraseIndex]
 
     if (isPaused) {
@@ -66,7 +66,16 @@ export function TypingAnimation({
         return () => clearTimeout(timeout)
       }
     }
-  }, [currentText, isDeleting, isPaused, currentPhraseIndex, phrases, typingSpeed, deletingSpeed, pauseDuration])
+  }, [currentText, isDeleting, isPaused, currentPhraseIndex, phrases, typingSpeed, deletingSpeed, pauseDuration, shouldReduceMotion])
+
+  // Reduced motion: show static text without cursor animation
+  if (shouldReduceMotion) {
+    return (
+      <span className="inline-flex items-center text-primary">
+        {currentText}
+      </span>
+    )
+  }
 
   return (
     <span className="inline-flex items-center">
@@ -75,6 +84,7 @@ export function TypingAnimation({
         className="inline-block w-2 h-5 bg-primary ml-1"
         animate={{ opacity: [1, 0] }}
         transition={{ duration: 0.8, repeat: Infinity, ease: 'easeInOut' }}
+        aria-hidden="true"
       />
     </span>
   )
