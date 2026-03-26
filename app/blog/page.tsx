@@ -21,6 +21,7 @@ export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Debounce search input
   useEffect(() => {
@@ -34,7 +35,7 @@ export default function BlogPage() {
     setLoading(true);
     try {
       const params = new URLSearchParams({
-        page: '1',
+        page: String(currentPage),
         limit: '50',
       });
 
@@ -47,11 +48,14 @@ export default function BlogPage() {
       }
 
       const response = await fetch(`/api/posts?${params.toString()}`);
-      const data: { data: BlogPost[]; pagination: Pagination } = await response.json();
+      const json = await response.json();
 
-      if (data.data) {
-        setPosts(data.data);
-        setPagination(data.pagination);
+      if (json.success && json.data) {
+        setPosts(json.data.data);
+        setPagination(json.data.pagination);
+      } else {
+        setPosts([]);
+        setPagination(null);
       }
     } catch (error) {
       console.error('Failed to fetch posts:', error);
@@ -59,6 +63,10 @@ export default function BlogPage() {
     } finally {
       setLoading(false);
     }
+  }, [selectedCategory, debouncedSearch, currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
   }, [selectedCategory, debouncedSearch]);
 
   useEffect(() => {
@@ -183,6 +191,7 @@ export default function BlogPage() {
         {!loading && pagination && pagination.totalPages > 1 && (
           <div className="flex justify-center items-center gap-4 pt-8 border-t border-[#27272a]">
             <button
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
               disabled={!pagination.hasPrev}
               className="px-4 py-2 border border-[#27272a] text-[#a1a1aa] hover:border-[#10b981]/50 disabled:opacity-50 disabled:cursor-not-allowed font-mono text-sm"
             >
@@ -190,21 +199,26 @@ export default function BlogPage() {
             </button>
             
             <div className="flex items-center gap-2">
-              {Array.from({ length: Math.min(pagination.totalPages, 5) }, (_, i) => (
-                <button
-                  key={i + 1}
-                  className={`w-10 h-10 text-sm font-mono ${
-                    pagination.page === i + 1
-                      ? 'bg-[#10b981]/10 border border-[#10b981]/30 text-[#10b981]'
-                      : 'border border-[#27272a] text-[#a1a1aa] hover:border-[#10b981]/50'
-                  }`}
-                >
-                  [ {String(i + 1).padStart(2, '0')} ]
-                </button>
-              ))}
+              {Array.from({ length: Math.min(pagination.totalPages, 5) }, (_, i) => {
+                const pageNum = i + 1;
+                return (
+                  <button
+                    key={pageNum}
+                    onClick={() => setCurrentPage(pageNum)}
+                    className={`w-10 h-10 text-sm font-mono ${
+                      pagination.page === pageNum
+                        ? 'bg-[#10b981]/10 border border-[#10b981]/30 text-[#10b981]'
+                        : 'border border-[#27272a] text-[#a1a1aa] hover:border-[#10b981]/50'
+                    }`}
+                  >
+                    [ {String(pageNum).padStart(2, '0')} ]
+                  </button>
+                );
+              })}
             </div>
             
             <button
+              onClick={() => setCurrentPage(p => p + 1)}
               disabled={!pagination.hasNext}
               className="px-4 py-2 border border-[#27272a] text-[#a1a1aa] hover:border-[#10b981]/50 disabled:opacity-50 disabled:cursor-not-allowed font-mono text-sm"
             >

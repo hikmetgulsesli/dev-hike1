@@ -27,17 +27,17 @@ export function EmptyState({ searchQuery, selectedCategory }: EmptyStateProps) {
         </svg>
       </div>
       <h3 className="text-xl font-bold text-[#fafafa] mb-2">
-        Proje Bulunamadı
+        Sonuç Bulunamadı
       </h3>
       <p className="text-[#a1a1aa] text-center max-w-md">
         {hasFilters ? (
           <>
-            Arama kriterlerinize uygun proje bulunamadı.
+            Arama kriterlerinize uygun sonuç bulunamadı.
             <br />
             Farklı bir arama terimi deneyin veya filtreleri temizleyin.
           </>
         ) : (
-          'Henüz proje eklenmemiş. Daha sonra tekrar kontrol edin.'
+          'Henüz içerik eklenmemiş. Daha sonra tekrar kontrol edin.'
         )}
       </p>
     </div>

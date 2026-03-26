@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 import { Project, Pagination } from '@/lib/types';
 import { ProjectCard } from '../components/ProjectCard';
 import { ProjectSkeletonGrid } from '../components/ProjectSkeleton';
@@ -170,12 +171,12 @@ export default function ProjectsPage() {
             Fikirlerinizi hayata geçirmek için birlikte çalışalım. Modern
             teknolojilerle ölçeklenebilir çözümler üretiyorum.
           </p>
-          <a
+          <Link
             href="/contact"
             className="inline-flex items-center gap-3 px-8 py-3 bg-[#10b981] text-[#0a0a0f] font-semibold rounded-md hover:bg-[#059669] transition-colors"
           >
             <span>&gt; BAŞLATALIM</span>
-          </a>
+          </Link>
         </div>
       </section>
     </main>
