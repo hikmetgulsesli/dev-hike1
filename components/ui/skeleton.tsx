@@ -18,7 +18,7 @@ const Skeleton: React.FC<SkeletonProps> = ({
   style,
   ...props
 }) => {
-  const baseStyles = 'bg-[#1a1a1f]'
+  const baseStyles = 'bg-background-subtle'
   
   const variantStyles = {
     text: 'rounded',

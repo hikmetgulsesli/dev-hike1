@@ -21,7 +21,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     disabled,
     ...props 
   }, ref) => {
-    const baseStyles = 'w-full bg-[#111113] border rounded-md text-[#fafafa] placeholder:text-[#6b7280] transition-all duration-150 focus:outline-none'
+    const baseStyles = 'w-full bg-background-elevated border rounded-md text-text-primary placeholder:text-text-muted transition-all duration-150 focus:outline-none'
     
     const sizeStyles = {
       sm: 'px-3 py-2 text-sm',
@@ -30,15 +30,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }
     
     const borderStyles = error
-      ? 'border-[#ef4444] focus:border-[#ef4444] ring-2 ring-[#ef4444]/20 ring-offset-2 ring-offset-[#0a0a0f]'
-      : 'border-[#27272a] focus:border-[#10b981] ring-2 ring-[#10b981]/20 ring-offset-2 ring-offset-[#0a0a0f]'
+      ? 'border-error focus:border-error focus:ring-2 focus:ring-error/20 focus:ring-offset-2 focus:ring-offset-background'
+      : 'border-border focus:border-primary focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background'
     
     const disabledStyles = disabled ? 'opacity-50 cursor-not-allowed' : ''
     
     return (
       <div className="relative">
         {leftIcon && (
-          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6b7280]">
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
             {leftIcon}
           </div>
         )}
@@ -49,12 +49,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         {rightIcon && (
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b7280]">
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted">
             {rightIcon}
           </div>
         )}
         {error && errorMessage && (
-          <p className="mt-1.5 text-sm text-[#ef4444]">{errorMessage}</p>
+          <p className="mt-1.5 text-sm text-error">{errorMessage}</p>
         )}
       </div>
     )
@@ -85,11 +85,11 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     rows = 4,
     ...props 
   }, ref) => {
-    const baseStyles = 'w-full bg-[#111113] border rounded-md text-[#fafafa] placeholder:text-[#6b7280] transition-all duration-150 focus:outline-none resize-y'
+    const baseStyles = 'w-full bg-background-elevated border rounded-md text-text-primary placeholder:text-text-muted transition-all duration-150 focus:outline-none resize-y'
     
     const borderStyles = error
-      ? 'border-[#ef4444] focus:border-[#ef4444] ring-2 ring-[#ef4444]/20 ring-offset-2 ring-offset-[#0a0a0f]'
-      : 'border-[#27272a] focus:border-[#10b981] ring-2 ring-[#10b981]/20 ring-offset-2 ring-offset-[#0a0a0f]'
+      ? 'border-error focus:border-error focus:ring-2 focus:ring-error/20 focus:ring-offset-2 focus:ring-offset-background'
+      : 'border-border focus:border-primary focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background'
     
     const disabledStyles = disabled ? 'opacity-50 cursor-not-allowed' : ''
     
@@ -126,12 +126,12 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           {...props}
         />
         {showCount && maxLength && (
-          <div className={`absolute bottom-3 right-3 text-xs ${currentLength >= maxLength ? 'text-[#ef4444]' : 'text-[#6b7280]'}`}>
+          <div className={`absolute bottom-3 right-3 text-xs ${currentLength >= maxLength ? 'text-error' : 'text-text-muted'}`}>
             {currentLength}/{maxLength}
           </div>
         )}
         {error && errorMessage && (
-          <p className="mt-1.5 text-sm text-[#ef4444]">{errorMessage}</p>
+          <p className="mt-1.5 text-sm text-error">{errorMessage}</p>
         )}
       </div>
     )
