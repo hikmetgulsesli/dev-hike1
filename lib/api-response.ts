@@ -1,10 +1,10 @@
 import { ApiResponse, PaginatedResponse, Pagination } from './types';
 
-export function successResponse<T>(data: T, timestamp?: string): ApiResponse<T> {
+export function successResponse<T>(data: T): ApiResponse<T> {
   return {
     success: true,
     data,
-    timestamp: timestamp || new Date().toISOString(),
+    timestamp: new Date().toISOString(),
   };
 }
 
@@ -20,11 +20,10 @@ export function errorResponse(code: string, message: string, details?: Record<st
   };
 }
 
-export function paginatedResponse<T>(data: T[], pagination: Pagination): ApiResponse<{ data: T[]; pagination: Pagination }> {
+export function paginatedResponse<T>(data: T[], pagination: Pagination): PaginatedResponse<T> {
   return {
-    success: true,
-    data: { data, pagination },
-    timestamp: new Date().toISOString(),
+    data,
+    pagination,
   };
 }
 
