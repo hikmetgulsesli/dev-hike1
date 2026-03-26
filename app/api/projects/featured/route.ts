@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { projects } from '@/lib/data';
-import { successResponse, errorResponse } from '@/lib/api-response';
+import { successResponse } from '@/lib/api-response';
 
 export async function GET(request: NextRequest) {
   try {
@@ -21,9 +21,15 @@ export async function GET(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Failed to fetch featured projects:', error);
     return NextResponse.json(
-      errorResponse('INTERNAL_ERROR', 'An unexpected error occurred'),
+      {
+        success: false,
+        error: {
+          code: 'INTERNAL_ERROR',
+          message: 'An unexpected error occurred',
+        },
+        timestamp: new Date().toISOString(),
+      },
       { status: 500 }
     );
   }
