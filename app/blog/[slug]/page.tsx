@@ -1,5 +1,5 @@
-import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://hikmetgulsesli.com";
 
@@ -50,7 +50,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { slug } = params;
   const post = blogPosts.find((p) => p.slug === slug);
-  
+
   if (!post) {
     return {
       title: "Post Not Found",
@@ -99,7 +99,7 @@ export async function generateMetadata({
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = params;
   const post = blogPosts.find((p) => p.slug === slug);
-  
+
   if (!post) {
     notFound();
   }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-const BASE_URL = "https://hikmetgulsesli.com";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://hikmetgulsesli.com";
 
 interface Project {
   slug: string;
@@ -16,34 +17,41 @@ interface Project {
   publishedAt: string;
 }
 
-// Demo project for development - in production this would come from CMS/database
-const demoProject: Project = {
-  slug: "vesta-dashboard",
-  title: "Vesta Dashboard",
-  shortDescription:
-    "Modern bir finans takip ve analiz platformu. Gerçek zamanlı veri görselleştirme.",
-  description:
-    "Kullanıcıların finansal verilerini takip etmelerini ve analiz etmelerini sağlayan kapsamlı bir dashboard uygulaması.",
-  thumbnail: "/projects/vesta-dashboard.jpg",
-  category: "web",
-  techStack: ["React", "TypeScript", "Tailwind CSS", "Node.js", "PostgreSQL"],
-  liveUrl: "https://vesta-dashboard.example.com",
-  githubUrl: "https://github.com/hikmetgulsesli/vesta-dashboard",
-  featured: true,
-  publishedAt: "2024-05-15",
-};
+// Available projects - in production this would come from CMS/database
+const projects: Project[] = [
+  {
+    slug: "vesta-dashboard",
+    title: "Vesta Dashboard",
+    shortDescription:
+      "Modern bir finans takip ve analiz platformu. Gerçek zamanlı veri görselleştirme.",
+    description:
+      "Kullanıcıların finansal verilerini takip etmelerini ve analiz etmelerini sağlayan kapsamlı bir dashboard uygulaması.",
+    thumbnail: "/projects/vesta-dashboard.jpg",
+    category: "web",
+    techStack: ["React", "TypeScript", "Tailwind CSS", "Node.js", "PostgreSQL"],
+    liveUrl: "https://vesta-dashboard.example.com",
+    githubUrl: "https://github.com/hikmetgulsesli/vesta-dashboard",
+    featured: true,
+    publishedAt: "2024-05-15",
+  },
+];
 
 interface PageProps {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
-  // In production, fetch project by slug from CMS
-  const project =
-    slug === demoProject.slug ? demoProject : { ...demoProject, slug };
+  const { slug } = params;
+  const project = projects.find((p) => p.slug === slug);
+
+  if (!project) {
+    return {
+      title: "Project Not Found",
+      robots: { index: false, follow: false },
+    };
+  }
 
   const url = `${BASE_URL}/projects/${project.slug}`;
 
@@ -58,7 +66,7 @@ export async function generateMetadata({
       images: project.thumbnail
         ? [
             {
-              url: project.thumbnail,
+              url: `${BASE_URL}${project.thumbnail}`,
               width: 1200,
               height: 630,
               alt: project.title,
@@ -70,7 +78,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: project.title,
       description: project.shortDescription,
-      images: project.thumbnail ? [project.thumbnail] : undefined,
+      images: project.thumbnail ? [`${BASE_URL}${project.thumbnail}`] : undefined,
     },
     alternates: {
       canonical: url,
@@ -79,16 +87,19 @@ export async function generateMetadata({
 }
 
 export default async function ProjectDetailPage({ params }: PageProps) {
-  const { slug } = await params;
-  const project =
-    slug === demoProject.slug ? demoProject : { ...demoProject, slug };
+  const { slug } = params;
+  const project = projects.find((p) => p.slug === slug);
+
+  if (!project) {
+    notFound();
+  }
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: project.title,
     description: project.shortDescription,
-    image: project.thumbnail,
+    image: project.thumbnail ? `${BASE_URL}${project.thumbnail}` : undefined,
     author: {
       "@type": "Person",
       name: "Hikmet Güleşli",
@@ -106,11 +117,13 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     },
   };
 
+  const safeJsonLd = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd }}
       />
       <main className="pt-24 pb-20 px-6 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-24">
