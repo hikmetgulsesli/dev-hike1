@@ -455,9 +455,9 @@ export default function ContactPage() {
             </div>
           </div>
           <div className="flex gap-8 font-mono text-xs uppercase tracking-widest text-slate-600">
-            <a className="hover:text-[#4edea3] transition-colors underline-offset-4 hover:underline" href="#">Privacy</a>
-            <a className="hover:text-[#4edea3] transition-colors underline-offset-4 hover:underline" href="#">Security</a>
-            <a className="hover:text-[#4edea3] transition-colors underline-offset-4 hover:underline" href="#">Status</a>
+            <a className="hover:text-[#4edea3] transition-colors underline-offset-4 hover:underline" href="/privacy">Privacy</a>
+            <a className="hover:text-[#4edea3] transition-colors underline-offset-4 hover:underline" href="/security">Security</a>
+            <a className="hover:text-[#4edea3] transition-colors underline-offset-4 hover:underline" href="/status">Status</a>
           </div>
           <div className="flex items-center gap-3 bg-[#1b1b20] px-4 py-2 rounded-full">
             <div className="w-2 h-2 rounded-full bg-[#4edea3] shadow-[0_0_8px_#4edea3]"></div>
