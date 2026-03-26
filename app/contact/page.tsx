@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 
 interface FormData {
@@ -44,9 +44,22 @@ export default function ContactPage() {
   });
   const [thankYou, setThankYou] = useState(false);
 
+  const toastTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   const showToast = useCallback((type: ToastState['type'], message: string) => {
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
+    }
     setToast({ show: true, type, message });
-    setTimeout(() => setToast(prev => ({ ...prev, show: false })), 5000);
+    toastTimeoutRef.current = setTimeout(() => setToast(prev => ({ ...prev, show: false })), 5000);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (toastTimeoutRef.current) {
+        clearTimeout(toastTimeoutRef.current);
+      }
+    };
   }, []);
 
   const validateField = (name: string, value: string): string | undefined => {
@@ -102,7 +115,6 @@ export default function ContactPage() {
     });
     setErrors({});
     setTouched({});
-    setThankYou(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -148,8 +160,8 @@ export default function ContactPage() {
 
       if (data.success) {
         showToast('success', 'Mesajınız başarıyla gönderildi!');
-        setThankYou(true);
         resetForm();
+        setThankYou(true);
       } else {
         if (data.error?.details) {
           setErrors(data.error.details);
@@ -485,8 +497,6 @@ export default function ContactPage() {
           <span>Contact</span>
         </Link>
       </nav>
-
-      <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
     </div>
   );
 }
