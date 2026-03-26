@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const id = `contact-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const id = `contact-${crypto.randomUUID()}`;
 
     console.log('Contact form submission:', {
       id,
@@ -107,6 +107,7 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
+    console.error('Error in POST /api/contact:', error);
     return NextResponse.json(
       {
         success: false,

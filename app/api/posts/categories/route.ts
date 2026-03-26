@@ -23,6 +23,7 @@ export async function GET(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
+    console.error('Error in GET /api/posts/categories:', error);
     return NextResponse.json(
       {
         success: false,

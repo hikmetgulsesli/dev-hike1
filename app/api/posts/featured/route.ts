@@ -19,10 +19,11 @@ export async function GET(request: NextRequest) {
       .slice(0, limit);
 
     return NextResponse.json(
-      successResponse(limit === 1 ? (featuredPosts[0] || null) : featuredPosts),
+      successResponse(featuredPosts),
       { status: 200 }
     );
   } catch (error) {
+    console.error('Error in GET /api/posts/featured:', error);
     return NextResponse.json(
       {
         success: false,
